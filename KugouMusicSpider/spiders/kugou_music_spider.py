@@ -48,7 +48,7 @@ class KugouMusicSpiderSpider(scrapy.Spider):
         :return:
         """
         head_singers = response.xpath('//ul[@id="list_head"]/li')
-        for singer_info in head_singers[:1]:
+        for singer_info in head_singers:
             singer_url = singer_info.xpath('./a/@href').extract_first()
             match_re = re.match(".*?(\d+).*", singer_url)
             if match_re:
@@ -85,7 +85,7 @@ class KugouMusicSpiderSpider(scrapy.Spider):
         yield singer_item
 
         musics = response.xpath('//ul[@id="song_container"]/li')
-        for music in musics[:1]:
+        for music in musics:
             music_hash = music.xpath('./a/input/@value').extract_first()
             match_re = re.match(".*\|(.*)\|.*", music_hash)
             if match_re:
